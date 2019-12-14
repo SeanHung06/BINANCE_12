@@ -1,0 +1,6 @@
+--清檔
+find . -name "*.pyc" -exec rm -f {} \;
+
+--Python 可以使⽤用第三⽅方套件「urllib」中的「urlretrieve」方法來下載檔案
+--urllib 是一個⽤於網路路資源（URL）操作的函式庫（library）
+from urllib.request import urlretrieve
