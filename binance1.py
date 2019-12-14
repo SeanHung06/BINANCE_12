@@ -17,7 +17,7 @@ whole_df.to_excel("binance_ETHUSDT_data.xlsx")
 whole_df.to_csv('binance_ETHUSDT_data.csv', encoding='utf-8')
 
 import csv
-# 開啟 CSV 檔案
+# open the CSV file
 with open('./binance_ETHUSDT_data.csv', newline='') as csvfile:
     rows = csv.reader(csvfile)
     for row in rows:
