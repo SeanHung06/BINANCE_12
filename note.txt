@@ -4,3 +4,15 @@ find . -name "*.pyc" -exec rm -f {} \;
 --Python 可以使⽤用第三⽅方套件「urllib」中的「urlretrieve」方法來下載檔案
 --urllib 是一個⽤於網路路資源（URL）操作的函式庫（library）
 from urllib.request import urlretrieve
+
+
+
+--時區轉換
+time_res1=1576368000
+timeArray = time.localtime(time_res1)
+otherStyleTime = time.strftime("%Y-%m-%d %H:%M:%S", timeArray)
+print(timeArray)
+print(otherStyleTime)
+-- get produt in binance 
+products = client.get_products()
+print(products)
