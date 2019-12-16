@@ -18,7 +18,9 @@ whole_df.columns = ['Open_time','open','high','low','close','volume','Close_time
 whole_df = whole_df.drop_duplicates(subset=['Open_time'], keep=False)
 
 for i in whole_df.Open_time:
-    print(whole_df.Open_time[i])
+    timeArray = time.localtime(i/1000)
+    print(time.strftime("%Y-%m-%d %H:%M:%S", timeArray))
+    
 #whole_df.Open_time= time.strftime("%Y-%m-%d %H:%M:%S",whole_df.Open_time.str)
 
 print(whole_df.Open_time[5])
