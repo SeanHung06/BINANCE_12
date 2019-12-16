@@ -17,16 +17,18 @@ whole_df = pd.DataFrame(klines)
 whole_df.columns = ['Open_time','open','high','low','close','volume','Close_time', 'Quote asset volume', 'number of trades', 'Taker buy base asset volume', 'Taker buy quote asset volume', 'Ignore']
 whole_df = whole_df.drop_duplicates(subset=['Open_time'], keep=False)
 
-whole_df.Open_time = (whole_df.Open_time*0.001)
+for i in whole_df.Open_time:
+    print(whole_df.Open_time[i])
+#whole_df.Open_time= time.strftime("%Y-%m-%d %H:%M:%S",whole_df.Open_time.str)
 
-whole_df.Open_time= time.strftime("%Y-%m-%d %H:%M:%S",whole_df.Open_time)
-
-print(whole_df)
+print(whole_df.Open_time[5])
+print(whole_df.shape[0])
 whole_df.to_excel("binance_ETHUSDT_data.xlsx")
 whole_df.to_csv('binance_ETHUSDT_data.csv', encoding='utf-8')
 
 
 depth = client.get_order_book(symbol='BNBBTC')
+
 #print(depth)
 
 import csv
