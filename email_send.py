@@ -20,7 +20,7 @@ content = 'Hi'
 content += '\n\nThis is an automated message.\n\n'
 reader = csv.reader(f)
 for row in reader:
-  content = content + str(row)+'\n'
+  content += str(row)+'\n\n'
   
 
 content += '\nRegards Sean'
