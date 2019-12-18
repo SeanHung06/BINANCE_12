@@ -19,3 +19,7 @@ print(otherStyleTime)
 -- get produt in binance 
 products = client.get_products()
 print(products)
+
+
+-- linux 定時
+crontab -e  
