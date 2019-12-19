@@ -6,11 +6,15 @@ import binance
 import time
 import datetime
 from binance.client import Client
+
 api_key = 'hVvOTPoDT54u8CndCxam03axcJcaPZjWFAQv7wruzhK2PTeu80nt6mRkAeNkSAR9'
 api_secret = 'E0PupiP3L94PxiWI0C6BUhzbLhLGwdHbroOUnB8lKyawmrEmWU5lasFndzHYSbCa'
 client = Client(api_key, api_secret)
 client = Client("api-key", "api-secret", {"verify": False, "timeout": 20})
-klines = client.get_historical_klines('ETHUSDT', Client.KLINE_INTERVAL_1DAY, '01 Nov, 2019')
+klines = client.get_historical_klines('ETHUSDT', Client.KLINE_INTERVAL_30MINUTE, '01 Nov, 2019')
+
+
+
 
 # use panda data frame to process the Kline data 
 whole_df = pd.DataFrame(klines)
