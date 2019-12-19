@@ -23,3 +23,6 @@ print(products)
 
 -- linux 定時
 crontab -e  
+Execute on workdays 1AM	0 1 * * 1-5 /bin/execute/this/script.sh
+Execute every 10 minutes	*/10 * * * * /bin/execute/this/script.sh
+Log output to file	*/10 * * * * /bin/execute/this/script.sh >> /var/log/script_output.log 2>&1
