@@ -22,9 +22,13 @@ whole_df = pd.DataFrame(klines)
 whole_df.columns = ['Open_time','open','high','low','close','volume','Close_time', 'Quote asset volume', 'number of trades', 'Taker buy base asset volume', 'Taker buy quote asset volume', 'Ignore']
 whole_df = whole_df.drop_duplicates(subset=['Open_time'], keep=False)
 
+whole_df['MA_7'] = whole_df['close'].rolling(7).mean()
+
+
+print(whole_df['MA_7'])
 # use lambda to  transfor tje timestamp to local time 
-whole_df['Open_time_1']=whole_df['Open_time'].apply(lambda d: datetime.datetime.fromtimestamp(int(d)/1000).strftime('%Y-%m-%d %H:%M:%S'))
-print(whole_df)
+whole_df['Open_time_GST']=whole_df['Open_time'].apply(lambda d: datetime.datetime.fromtimestamp(int(d)/1000).strftime('%Y-%m-%d %H:%M:%S'))
+
 
 #use for loop to transfer the timestamp 
 for i in whole_df.Open_time:
@@ -38,6 +42,12 @@ whole_df.to_csv('binance_ETHUSDT_data.csv', encoding='utf-8')
 
 
 depth = client.get_order_book(symbol='BNBBTC')
+
+
+whole_df= whole_df.drop(columns=['Ignore', 'Open_time'])
+print(whole_df)
+
+
 
 #print(depth)
 
