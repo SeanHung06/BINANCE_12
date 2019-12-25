@@ -2,6 +2,13 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import csv
+import binance1
+
+
+
+
+
+
 fileToSend = "binance_ETHUSDT_data.csv"
 
 from_address = "u8351574@gmail.com"
@@ -41,7 +48,11 @@ password = 'qknvwdlikvbozwap'
 ## note - this smtp config worked for me, I found it googling around, you may have to tweak the # (587) to get yours to work
 server = smtplib.SMTP('smtp.gmail.com', 587) 
 server.ehlo()
-server.starttls()
+# if the signal = 1 then send the mail
+if binance1.signal == 1:
+
+  server.starttls()
+
 server.login(username,password)  
 server.sendmail(from_address, to_address, msg.as_string())  
 server.quit()

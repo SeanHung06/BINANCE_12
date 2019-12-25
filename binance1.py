@@ -7,14 +7,26 @@ import time
 import datetime
 from binance.client import Client
 import matplotlib.pyplot as plt
+import csv
 
+#constant
 api_key = 'hVvOTPoDT54u8CndCxam03axcJcaPZjWFAQv7wruzhK2PTeu80nt6mRkAeNkSAR9'
 api_secret = 'E0PupiP3L94PxiWI0C6BUhzbLhLGwdHbroOUnB8lKyawmrEmWU5lasFndzHYSbCa'
 client = Client(api_key, api_secret)
 client = Client("api-key", "api-secret", {"verify": False, "timeout": 20})
-klines = client.get_historical_klines('ETHUSDT', Client.KLINE_INTERVAL_1DAY, '01 Nov, 2019')
+klines = client.get_historical_klines('ETHUSDT', Client.KLINE_INTERVAL_1DAY, '10 Dec, 2019')
+signal = 0 
 
 
+trade = client.get_recent_trades(symbol='ETHUSDT')[0]['price']
+trades = client.get_recent_trades(symbol='ETHUSDT')
+Server_time = client.get_server_time()
+print(Server_time)
+lambda Server_time: datetime.datetime.fromtimestamp(int(Server_time)/1000).strftime('%Y-%m-%d %H:%M:%S')
+print(Server_time)
+#print(trades)
+trades_df = pd.DataFrame(trades)
+trades_df.to_excel("trades_df.xlsx")
 
 # use panda data frame to process the Kline data 
 whole_df = pd.DataFrame(klines)
@@ -47,41 +59,34 @@ whole_df['DEM'] = whole_df['DIF'].ewm(span=9).mean()
 whole_df['OSC'] = whole_df['DIF'] - whole_df['DEM']
 
 
+
+# drawing the plots for the EMA
 fig,ax = plt.subplots(5,1,figsize=(10,10))
 plt.subplots_adjust(hspace=0.5)
 whole_df['EMA_1'].plot(ax=ax[0])
 whole_df['EMA_26'].plot(ax=ax[1])
+plt.plot(whole_df['Open_time_GST'],whole_df['EMA_1'])
 
 ax[0].legend()
 ax[1].legend()
-plt.show()
+#plt.show() 
 
 
+EMA1 = whole_df['EMA_1'][whole_df['EMA_1'].size-1]
+EMA2 = whole_df['EMA_2'][whole_df['EMA_2'].size-1]
 
-#use for loop to transfer the timestamp 
-for i in whole_df.Open_time:
-    timeArray = time.localtime(i/1000)
-    #print(time.strftime("%Y-%m-%d %H:%M:%S", timeArray))
+if EMA1 > EMA2 :
+    signal = 1
+
+
     
+#drop the rest columns
+whole_df= whole_df.drop(columns=['Ignore', 'Open_time'])
+print(whole_df)
 
 whole_df.to_excel("binance_ETHUSDT_data.xlsx")
 whole_df.to_csv('binance_ETHUSDT_data.csv', encoding='utf-8')
 
 
 depth = client.get_order_book(symbol='BNBBTC')
-
-#drop the rest columns
-whole_df= whole_df.drop(columns=['Ignore', 'Open_time'])
-print(whole_df)
-
-
-
-#print(depth)
-
-import csv
-# open the CSV file
-with open('./binance_ETHUSDT_data.csv', newline='') as csvfile:
-    rows = csv.reader(csvfile)
-    #for row in rows:
-        #print(row)
 
