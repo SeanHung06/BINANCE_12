@@ -21,9 +21,9 @@ signal = 0
 trade = client.get_recent_trades(symbol='ETHUSDT')[0]['price']
 trades = client.get_recent_trades(symbol='ETHUSDT')
 Server_time = client.get_server_time()
-print(Server_time)
+#print(Server_time)
 lambda Server_time: datetime.datetime.fromtimestamp(int(Server_time)/1000).strftime('%Y-%m-%d %H:%M:%S')
-print(Server_time)
+#print(Server_time)
 #print(trades)
 trades_df = pd.DataFrame(trades)
 trades_df.to_excel("trades_df.xlsx")
@@ -74,10 +74,20 @@ ax[1].legend()
 
 EMA1 = whole_df['EMA_1'][whole_df['EMA_1'].size-1]
 EMA2 = whole_df['EMA_2'][whole_df['EMA_2'].size-1]
-signal_temp = signal
+
+data = open('data.txt', 'r')
+
+
+signal_temp = data.read()
 if EMA1 > EMA2 :
     signal = 1
-if(signal_temp!=signal):
+    data = open('data.txt', 'w')
+    data.write(str(signal))
+    data.close()
+
+if(int(signal_temp) != signal):
+    email_data = open('email_send_signal.txt', 'w')
+    email_data.write(str(1))
     print(signal_temp,signal)
 
     

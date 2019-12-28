@@ -9,10 +9,10 @@ import binance1
 
 
 
+
 fileToSend = "binance_ETHUSDT_data.csv"
 
 from_address = "u8351574@gmail.com"
-#to_address = "clarehuang951102@gmail.com"
 to_address = "u8351574@gmail.com"
 # Create message container - the correct MIME type is multipart/alternative.
 msg = MIMEMultipart('alternative')
@@ -49,9 +49,16 @@ password = 'qknvwdlikvbozwap'
 server = smtplib.SMTP('smtp.gmail.com', 587) 
 server.ehlo()
 # if the signal = 1 then send the mail
-if binance1.signal == 1:
+email_data = open('email_send_signal.txt', 'r')
 
+email_signal_temp = email_data.read()
+
+if email_signal_temp == '1':
   server.starttls()
+  email_data = open('email_send_signal.txt', 'w')
+  email_data.write('0')
+
+  print(email_signal_temp)
 
 server.login(username,password)  
 server.sendmail(from_address, to_address, msg.as_string())  
