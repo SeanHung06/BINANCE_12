@@ -55,11 +55,11 @@ email_signal_temp = email_data.read()
 
 if email_signal_temp == '1':
   server.starttls()
+  server.login(username,password)  
+  server.sendmail(from_address, to_address, msg.as_string())  
+  server.quit()
   email_data = open('email_send_signal.txt', 'w')
   email_data.write('0')
 
   print(email_signal_temp)
 
-server.login(username,password)  
-server.sendmail(from_address, to_address, msg.as_string())  
-server.quit()
