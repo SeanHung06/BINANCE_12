@@ -23,7 +23,7 @@ msg['To'] = to_address
 # Open the file csv and input the content in the loop 
 f = open('trade_details.csv')
 content = 'Hi'
-content += '\n\nALERT!\n\n'
+content += '\n\nThe price for now is \n\n'
 reader = csv.reader(f)
 
 for row in reader:
@@ -54,13 +54,9 @@ email_data = open('email_send_signal.txt', 'r')
 
 email_signal_temp = email_data.read()
 
-if email_signal_temp == '1':
-  server.starttls()
-  server.login(username,password)  
-  server.sendmail(from_address, to_address, msg.as_string())  
-  server.quit()
-  email_data = open('email_send_signal.txt', 'w')
-  email_data.write('0')
+server.starttls()
+server.login(username,password)  
+server.sendmail(from_address, to_address, msg.as_string())  
+server.quit() 
 
-  print(email_signal_temp)
 

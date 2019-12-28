@@ -32,6 +32,15 @@ trades_df = pd.DataFrame(trades)
 #trades_df.to_excel("trades_df.xlsx")
 trades_df.to_csv('trades_df.csv', encoding='utf-8')
 
+
+
+# Create a Numpy array for trade price and trade time
+arr = np.array([trade_price,trade_time])
+np.savetxt('trade_details.csv', [arr], delimiter=',', fmt='%s')
+
+
+
+
 # use panda data frame to process the Kline data 
 whole_df = pd.DataFrame(klines)
 
