@@ -27,15 +27,19 @@ Server_time = client.get_server_time()
 #print(Server_time)
 lambda Server_time: datetime.datetime.fromtimestamp(int(Server_time)/1000).strftime('%Y-%m-%d %H:%M:%S')
 #print(Server_time)
-print(trade_price,trade_time)
+#print(trade_price,trade_time)
 trades_df = pd.DataFrame(trades)
 #trades_df.to_excel("trades_df.xlsx")
 trades_df.to_csv('trades_df.csv', encoding='utf-8')
 
 
+# transform the data time
+timeArray = time.localtime(int(trade_time)/1000)
+trade_time_trans = time.strftime("%Y-%m-%d %H:%M:%S", timeArray)
+
 
 # Create a Numpy array for trade price and trade time
-arr = np.array([trade_price,trade_time])
+arr = np.array([trade_price,trade_time_trans])
 np.savetxt('trade_details.csv', [arr], delimiter=',', fmt='%s')
 
 
