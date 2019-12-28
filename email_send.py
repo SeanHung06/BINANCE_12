@@ -10,7 +10,6 @@ import binance1
 
 
 
-fileToSend = "binance_ETHUSDT_data.csv"
 
 from_address = "u8351574@gmail.com"
 to_address = "u8351574@gmail.com"
@@ -22,12 +21,16 @@ msg['To'] = to_address
 # Create the message (CSV).
 
 # Open the file csv and input the content in the loop 
-f = open('binance_ETHUSDT_data.csv')
+f = open('trades_df.csv')
 content = 'Hi'
-content += '\n\nThis is an automated message.\n\n'
+content += '\n\nALERT!\n\n'
 reader = csv.reader(f)
+line_count = 0
 for row in reader:
-  content += str(row)+'\n\n'
+  line_count=line_count+1
+  if line_count == 250 :
+    content += str(row)+'\n\n'
+
   
 
 content += '\nRegards Sean'

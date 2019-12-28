@@ -28,6 +28,7 @@ lambda Server_time: datetime.datetime.fromtimestamp(int(Server_time)/1000).strft
 #print(trades)
 trades_df = pd.DataFrame(trades)
 trades_df.to_excel("trades_df.xlsx")
+trades_df.to_csv('trades_df.csv', encoding='utf-8')
 
 # use panda data frame to process the Kline data 
 whole_df = pd.DataFrame(klines)
@@ -80,7 +81,7 @@ data = open('data.txt', 'r')
 
 
 signal_temp = data.read()
-if EMA1 > EMA2 :
+if EMA1 > EMA2 or EMA1 < EMA2:
     signal = 1
     data = open('data.txt', 'w')
     data.write(str(signal))
@@ -96,9 +97,8 @@ if(int(signal_temp) != signal):
 whole_df= whole_df.drop(columns=['Ignore', 'Open_time'])
 #print(whole_df)
 
-whole_df.to_excel("binance_ETHUSDT_data.xlsx")
+#whole_df.to_excel("binance_ETHUSDT_data.xlsx")
 whole_df.to_csv('binance_ETHUSDT_data.csv', encoding='utf-8')
 
 
-depth = client.get_order_book(symbol='BNBBTC')
 
