@@ -74,15 +74,16 @@ ax[1].legend()
 
 EMA1 = whole_df['EMA_1'][whole_df['EMA_1'].size-1]
 EMA2 = whole_df['EMA_2'][whole_df['EMA_2'].size-1]
-
+signal_temp = signal
 if EMA1 > EMA2 :
     signal = 1
-
+if(signal_temp!=signal):
+    print(signal_temp,signal)
 
     
 #drop the rest columns
 whole_df= whole_df.drop(columns=['Ignore', 'Open_time'])
-print(whole_df)
+#print(whole_df)
 
 whole_df.to_excel("binance_ETHUSDT_data.xlsx")
 whole_df.to_csv('binance_ETHUSDT_data.csv', encoding='utf-8')
