@@ -27,7 +27,7 @@ lambda Server_time: datetime.datetime.fromtimestamp(int(Server_time)/1000).strft
 #print(Server_time)
 #print(trades)
 trades_df = pd.DataFrame(trades)
-trades_df.to_excel("trades_df.xlsx")
+#trades_df.to_excel("trades_df.xlsx")
 trades_df.to_csv('trades_df.csv', encoding='utf-8')
 
 # use panda data frame to process the Kline data 
