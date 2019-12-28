@@ -19,13 +19,15 @@ signal = 0
 #constant
 
 
-trade = client.get_recent_trades(symbol='ETHUSDT')[0]['price']
+trade_price = client.get_recent_trades(symbol='ETHUSDT')[250]['price']
+trade_time = client.get_recent_trades(symbol='ETHUSDT')[250]['time']
 trades = client.get_recent_trades(symbol='ETHUSDT')
+#get server time
 Server_time = client.get_server_time()
 #print(Server_time)
 lambda Server_time: datetime.datetime.fromtimestamp(int(Server_time)/1000).strftime('%Y-%m-%d %H:%M:%S')
 #print(Server_time)
-#print(trades)
+print(trade_price,trade_time)
 trades_df = pd.DataFrame(trades)
 #trades_df.to_excel("trades_df.xlsx")
 trades_df.to_csv('trades_df.csv', encoding='utf-8')
