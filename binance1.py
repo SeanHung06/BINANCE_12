@@ -16,6 +16,7 @@ client = Client(api_key, api_secret)
 client = Client("api-key", "api-secret", {"verify": False, "timeout": 20})
 klines = client.get_historical_klines('ETHUSDT', Client.KLINE_INTERVAL_1DAY, '10 Dec, 2019')
 signal = 0 
+#constant
 
 
 trade = client.get_recent_trades(symbol='ETHUSDT')[0]['price']
