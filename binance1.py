@@ -13,7 +13,7 @@ import csv
 #constant
 today = date.today()
 timestampStr = today.strftime("%d %b, %Y")
-print(timestampStr)
+#print(timestampStr)
 
 api_key = 'hVvOTPoDT54u8CndCxam03axcJcaPZjWFAQv7wruzhK2PTeu80nt6mRkAeNkSAR9'
 api_secret = 'E0PupiP3L94PxiWI0C6BUhzbLhLGwdHbroOUnB8lKyawmrEmWU5lasFndzHYSbCa'
@@ -22,7 +22,7 @@ client = Client("api-key", "api-secret", {"verify": False, "timeout": 20})
 date1 = '10 Dec, 2019'
 
 
-klines = client.get_historical_klines('ETHUSDT', Client.KLINE_INTERVAL_1DAY, timestampStr)
+klines = client.get_historical_klines('ETHUSDT', Client.KLINE_INTERVAL_1DAY, '10 Aug, 2016')
 signal = 0 
 #constant
 
@@ -101,14 +101,26 @@ EMA1 = whole_df['EMA_1'][whole_df['EMA_1'].size-1]
 EMA2 = whole_df['EMA_2'][whole_df['EMA_2'].size-1]
 
 data = open('data.txt', 'r')
-
-
+print(EMA1,EMA2,whole_df['EMA_1'].size)
 signal_temp = data.read()
-if EMA1 > EMA2 or EMA1 < EMA2:
+if EMA1 > EMA2 :
     signal = 1
     data = open('data.txt', 'w')
+    data2 = open('buy_sell.txt', 'w')
+    data2.write('0')
     data.write(str(signal))
     data.close()
+    data2.close()
+
+if EMA1 < EMA2:
+    signal = 1
+    data1 = open('data.txt', 'w')
+    data2 = open('buy_sell.txt', 'w')
+    data1.write(str(signal))
+    data2.write('1')
+    data1.close()
+    data2.close()
+
 
 if(int(signal_temp) != signal):
     email_data = open('email_send_signal.txt', 'w')

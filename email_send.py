@@ -32,7 +32,7 @@ for row in reader:
 
 content += '<font size="6">Regards Sean</font>'
 part1 = MIMEText(content)
-msg['Subject'] = "Test email"
+msg['Subject'] = "ETH BUY OR SELL email"
 html = """
 <html>
   <head></head>

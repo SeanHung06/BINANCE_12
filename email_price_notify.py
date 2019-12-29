@@ -22,25 +22,57 @@ msg['To'] = to_address
 
 # Open the file csv and input the content in the loop 
 f = open('trade_details.csv')
-content = 'Hi'
-content += '\n\nThe price for now is \n\n'
+f_1 = open('binance_ETHUSDT_data.csv')
+content = '<font size="8">The price for now is</font><br>'
+
 reader = csv.reader(f)
+reader_f1 = csv.reader(f_1)
+
+
+
 
 for row in reader:
-    content += str(row)+'\n\n'
-
+    content += '<font size="6">'+str(row)+'<br></font>'
+line_1 = 0
+for row_f1 in reader_f1:
+    line_1 = line_1 + 1
+    
   
 
-content += '\nRegards Sean'
-msg = MIMEText(content)
-msg['Subject'] = "Test email"
-html = """\
-We are sending an email using Python and Gmail
- """
+content += '<font size="6">Regards Sean</font>'
+part1 = MIMEText(content)
+
+msg['Subject'] = "ETH Price Notify email"
+html = """
+<html>
+  <head></head>
+  <body>
+    <p>
+    <br>"""+content+"""<br>
+    </p>
+  </body>
+</html>
+"""
+
 # Record the MIME type - text/html.
-part1 = MIMEText(html, 'html')
+part2 = MIMEText(html, 'html')
+
+#add the file in the mail
+
+att = MIMEText(open('binance_ETHUSDT_data.xlsx', 'rb').read(), 'base64', 'utf-8')
+att["Content-Type"] = 'application/octet-stream'
+att["Content-Disposition"] = 'attachment; filename="binance_ETHUSDT_data.xlsx"'
+
+
 # Attach parts into message container
-#msg.attach(part1)
+msg.attach(part1)
+msg.attach(part2)
+msg.attach(att)
+
+
+
+
+
 
 # Credentials
 username = 'u8351574@gmail.com'  
