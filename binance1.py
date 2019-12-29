@@ -5,16 +5,24 @@ requests.packages.urllib3.disable_warnings()
 import binance
 import time
 import datetime
+from datetime import date
 from binance.client import Client
 import matplotlib.pyplot as plt
 import csv
 
 #constant
+today = date.today()
+timestampStr = today.strftime("%d %b, %Y")
+print(timestampStr)
+
 api_key = 'hVvOTPoDT54u8CndCxam03axcJcaPZjWFAQv7wruzhK2PTeu80nt6mRkAeNkSAR9'
 api_secret = 'E0PupiP3L94PxiWI0C6BUhzbLhLGwdHbroOUnB8lKyawmrEmWU5lasFndzHYSbCa'
 client = Client(api_key, api_secret)
 client = Client("api-key", "api-secret", {"verify": False, "timeout": 20})
-klines = client.get_historical_klines('ETHUSDT', Client.KLINE_INTERVAL_1DAY, '10 Dec, 2019')
+date1 = '10 Dec, 2019'
+
+
+klines = client.get_historical_klines('ETHUSDT', Client.KLINE_INTERVAL_1DAY, timestampStr)
 signal = 0 
 #constant
 
@@ -78,14 +86,14 @@ whole_df['OSC'] = whole_df['DIF'] - whole_df['DEM']
 
 
 # drawing the plots for the EMA
-fig,ax = plt.subplots(5,1,figsize=(10,10))
-plt.subplots_adjust(hspace=0.5)
-whole_df['EMA_1'].plot(ax=ax[0])
-whole_df['EMA_26'].plot(ax=ax[1])
-plt.plot(whole_df['Open_time_GST'],whole_df['EMA_1'])
+#fig,ax = plt.subplots(5,1,figsize=(10,10))
+#plt.subplots_adjust(hspace=0.5)
+#whole_df['EMA_1'].plot(ax=ax[0])
+#whole_df['EMA_26'].plot(ax=ax[1])
+#plt.plot(whole_df['Open_time_GST'],whole_df['EMA_1'])
 
-ax[0].legend()
-ax[1].legend()
+#ax[0].legend()
+#ax[1].legend()
 #plt.show() 
 
 
@@ -105,14 +113,14 @@ if EMA1 > EMA2 or EMA1 < EMA2:
 if(int(signal_temp) != signal):
     email_data = open('email_send_signal.txt', 'w')
     email_data.write(str(1))
-    print(signal_temp,signal)
+    #print(signal_temp,signal)
 
     
 #drop the rest columns
 whole_df= whole_df.drop(columns=['Ignore', 'Open_time'])
 #print(whole_df)
 
-#whole_df.to_excel("binance_ETHUSDT_data.xlsx")
+whole_df.to_excel("binance_ETHUSDT_data.xlsx")
 whole_df.to_csv('binance_ETHUSDT_data.csv', encoding='utf-8')
 
 

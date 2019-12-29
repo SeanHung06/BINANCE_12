@@ -22,25 +22,32 @@ msg['To'] = to_address
 
 # Open the file csv and input the content in the loop 
 f = open('trade_details.csv')
-content = 'Hi'
-content += '\n\nALERT!\n\n'
+content = '<font size="8">ALERT!</font><br>'
 reader = csv.reader(f)
 
 for row in reader:
-    content += str(row)+'\n\n'
+    content += '<font size="6">'+str(row)+'<br></font>'
 
   
 
-content += '\nRegards Sean'
-msg = MIMEText(content)
+content += '<font size="6">Regards Sean</font>'
+part1 = MIMEText(content)
 msg['Subject'] = "Test email"
-html = """\
-We are sending an email using Python and Gmail
- """
+html = """
+<html>
+  <head></head>
+  <body>
+    <p>
+    <br>"""+content+"""<br>
+    </p>
+  </body>
+</html>
+"""
 # Record the MIME type - text/html.
-part1 = MIMEText(html, 'html')
+part2 = MIMEText(html, 'html')
 # Attach parts into message container
-#msg.attach(part1)
+msg.attach(part1)
+msg.attach(part2)
 
 # Credentials
 username = 'u8351574@gmail.com'  
@@ -61,6 +68,3 @@ if email_signal_temp == '1':
   server.quit()
   email_data = open('email_send_signal.txt', 'w')
   email_data.write('0')
-
-  print(email_signal_temp)
-
