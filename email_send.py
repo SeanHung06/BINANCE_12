@@ -7,10 +7,6 @@ import binance1
 
 
 
-
-
-
-
 from_address = "u8351574@gmail.com"
 to_address = "u8351574@gmail.com"
 # Create message container - the correct MIME type is multipart/alternative.
@@ -24,6 +20,15 @@ msg['To'] = to_address
 f = open('trade_details.csv')
 content = '<font size="8">ALERT!</font><br>'
 reader = csv.reader(f)
+# read the buy sell data 
+buy_sell_data = open('buy_sell.txt', 'r')
+buy_sell = buy_sell_data.read()
+
+print(buy_sell)
+if buy_sell == '0':
+  content += '<font size="6">BUY!<br></font>'
+else:
+  content += '<font size="6">SELL!<br></font>'
 
 for row in reader:
     content += '<font size="6">'+str(row)+'<br></font>'
