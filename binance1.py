@@ -57,6 +57,7 @@ np.savetxt('trade_details.csv', [arr], delimiter=',', fmt='%s')
 whole_df = pd.DataFrame(klines)
 
 whole_df.columns = ['Open_time','open','high','low','close','volume','Close_time', 'Quote asset volume', 'number of trades', 'Taker buy base asset volume', 'Taker buy quote asset volume', 'Ignore']
+
 whole_df = whole_df.drop_duplicates(subset=['Open_time'], keep=False)
 
 # use lambda to  transfor tje timestamp to local time 
@@ -130,10 +131,15 @@ if(int(signal_temp) != signal):
     
 #drop the rest columns
 whole_df= whole_df.drop(columns=['Ignore', 'Open_time'])
-#print(whole_df)
+# drop the rows in whole_df and keep the bottom 10 
+
+#######STUCK###
+#whole_df = whole_df.drop(whole_df.head())
+
 
 whole_df.to_excel("binance_ETHUSDT_data.xlsx")
 whole_df.to_csv('binance_ETHUSDT_data.csv', encoding='utf-8')
+
 
 
 

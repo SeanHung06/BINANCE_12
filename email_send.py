@@ -24,7 +24,6 @@ reader = csv.reader(f)
 buy_sell_data = open('buy_sell.txt', 'r')
 buy_sell = buy_sell_data.read()
 
-print(buy_sell)
 if buy_sell == '0':
   content += '<font size="6">BUY!<br></font>'
 else:
