@@ -102,6 +102,15 @@ EMA1 = whole_df['EMA_1'][whole_df['EMA_1'].size-1]
 EMA2 = whole_df['EMA_2'][whole_df['EMA_2'].size-1]
 
 data = open('data.txt', 'r')
+
+# read and write the EMA file
+MyList = [str(EMA1),'\n',str(EMA2)]
+
+MyFile=open('EMA.txt','w')
+MyFile.writelines(MyList)
+MyFile.close()
+
+
 print(EMA1,EMA2,whole_df['EMA_1'].size)
 signal_temp = data.read()
 if EMA1 > EMA2 :
@@ -122,11 +131,9 @@ if EMA1 < EMA2:
     data1.close()
     data2.close()
 
-print(signal,signal_temp)
 if(signal_temp != str(signal)):
     email_data = open('email_send_signal.txt', 'w')
     email_data.write(str(1))
-    #print(signal_temp,signal)
 
     
 #drop the rest columns

@@ -2,14 +2,6 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 import csv
-import binance1
-
-
-
-
-
-
-
 
 from_address = "u8351574@gmail.com"
 to_address = "u8351574@gmail.com"
@@ -23,12 +15,13 @@ msg['To'] = to_address
 # Open the file csv and input the content in the loop 
 f = open('trade_details.csv')
 f_1 = open('binance_ETHUSDT_data.csv')
-content = '<font size="8">The price for now is</font><br>'
+content = '<font size="4">The price for now is</font><br>'
 
 reader = csv.reader(f)
 reader_f1 = csv.reader(f_1)
 
-
+#read the EMA data
+EMA_ALL = open('EMA.txt', 'r')
 
 
 for row in reader:
@@ -37,7 +30,9 @@ line_1 = 0
 for row_f1 in reader_f1:
     line_1 = line_1 + 1
     
-  
+
+for row_ema in EMA_ALL:
+    content += '<font size="6">'+'EMA:'+str(row_ema)+'<br></font>'
 
 content += '<font size="6">Regards Sean</font>'
 part1 = MIMEText(content)

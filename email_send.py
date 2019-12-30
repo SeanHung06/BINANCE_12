@@ -22,6 +22,8 @@ reader = csv.reader(f)
 # read the buy sell data 
 buy_sell_data = open('buy_sell.txt', 'r')
 buy_sell = buy_sell_data.read()
+#read the EMA data
+EMA_ALL = open('EMA.txt', 'r')
 
 if buy_sell == '0':
   content += '<font size="6">BUY!<br></font>'
@@ -31,7 +33,9 @@ else:
 for row in reader:
     content += '<font size="6">'+str(row)+'<br></font>'
 
-  
+for row_ema in EMA_ALL:
+    content += '<font size="6">'+str(row_ema)+'<br></font>'
+
 
 content += '<font size="6">Regards Sean</font>'
 part1 = MIMEText(content)
