@@ -114,7 +114,7 @@ if EMA1 > EMA2 :
     data2.close()
 
 if EMA1 < EMA2:
-    signal = 1
+    signal = 2
     data1 = open('data.txt', 'w')
     data2 = open('buy_sell.txt', 'w')
     data1.write(str(signal))
@@ -122,8 +122,8 @@ if EMA1 < EMA2:
     data1.close()
     data2.close()
 
-
-if(int(signal_temp) != signal):
+print(signal,signal_temp)
+if(signal_temp != str(signal)):
     email_data = open('email_send_signal.txt', 'w')
     email_data.write(str(1))
     #print(signal_temp,signal)
