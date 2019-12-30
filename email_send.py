@@ -48,9 +48,18 @@ html = """
 """
 # Record the MIME type - text/html.
 part2 = MIMEText(html, 'html')
+
+#add the file in the mail
+
+att = MIMEText(open('binance_ETHUSDT_data.xlsx', 'rb').read(), 'base64', 'utf-8')
+att["Content-Type"] = 'application/octet-stream'
+att["Content-Disposition"] = 'attachment; filename="binance_ETHUSDT_data.xlsx"'
+
 # Attach parts into message container
 msg.attach(part1)
 msg.attach(part2)
+msg.attach(att)
+
 
 # Credentials
 username = 'u8351574@gmail.com'  
