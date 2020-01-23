@@ -1,3 +1,23 @@
+--Python Lamda
+HomeWork12
+for d in sorted(data, key=lambda d: d['count'], reverse = True):
+
+Example 
+
+students = [
+['Joey', 'A', 15],
+['Monica', 'B', 10],
+['Ross', 'C', 8],
+['Rachel', 'B', 12]
+]
+student_sort_1 = sorted(students)
+student_sort = sorted(students, key = lambda student : student[2])
+
+
+
+--Python Homework pwd
+/Users/seanhung06/Documents/GitHub/1st-PyCrawlerMarathon/homework
+
 
 -- file file with selecting names
 ls -l /usr/local/bin | grep '../Library/Frameworks/Python.framework/Versions/2.7' 
